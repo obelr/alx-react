@@ -1,29 +1,17 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import NotificationItem from './NotificationItem';
+import React from "react";
+import { shallow } from "enzyme";
+import NotificationItem from "./NotificationItem";
 
-describe('<NotificationItem />', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<NotificationItem />);
-    shallow(<NotificationItem />);
-  });
-
-  it('renders type and value props', () => {
-    const wrapper = shallow(<NotificationItem type='default' value='test' />);
-    const li = wrapper.find('li');
-    expect(li).toHaveLength(1);
-    expect(li.text()).toEqual('test');
-    expect(li.prop('data-notification-type')).toEqual('default');
-  });
-
-  it('renders html prop', () => {
-    const text = 'Here is the list of notifications';
-    const wrapper = shallow(
-      <NotificationItem html={{ __html: '<u>test</u>' }} />
-    );
-    const li = wrapper.find('li');
-    expect(li.html()).toEqual(
-      '<li data-notification-type="default"><u>test</u></li>'
-    );
-  });
-});
+describe("Testing NotificationItem Component", () => {
+    test("renders component without crashing", () => {
+        const wrapper = shallow(<NotificationItem />)
+    })
+    test("renders the correct html by passing dummy type and value props", () => {
+        const wrapper = shallow(<NotificationItem type="urgent" value="New resume available" />)
+        expect(wrapper.html()).toBe('<li data-notification-type="urgent">New resume available</li>')
+    })
+    test("renders the correct html by passing dummy html prop", () => {
+        const wrapper = shallow(<NotificationItem html={{ __html: '<u>test</u>' }}/>)
+        expect(wrapper.html()).toBe('<li data-notification-type="default"><u>test</u></li>')
+    })
+})

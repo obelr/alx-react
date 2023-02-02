@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { Component } from "react";
 
-function WithLogging(WrappedComponent) {
-  const componentName =
-    WrappedComponent.displayName || WrappedComponent.name || 'Component';
-
-  class HOC extends React.Component {
+const WithLogging = (WrappedComponent) => {
+  // Nullish coalescing operator (??)
+  const  wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || "Component";
+  return class NewComponent extends Component {
     componentDidMount() {
-      console.log(`Component ${componentName} is mounted`);
+      console.log(`Component ${wrappedComponentName} is mounted`)
     }
-
-    componentWillUnmount() {
-      console.log(`Component ${componentName} is going to unmount`);
+    componentWillUnmount () {
+      console.log(`Component ${wrappedComponentName} is going to unmount`)
     }
-
     render() {
-      return <WrappedComponent {...this.props} />;
+      return <WrappedComponent {...this.props}/>
     }
   }
-  HOC.displayName = `WithLogging(${componentName})`;
-  return HOC;
+
 }
 
-export default WithLogging;
+
+export default WithLogging
